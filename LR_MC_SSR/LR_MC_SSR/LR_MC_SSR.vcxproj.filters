@@ -17,5 +17,9 @@
   <ItemGroup>
     <None Include="LR_MC_SSR.ino" />
   </ItemGroup>
- 
+  <ItemGroup>
+    <ClInclude Include="__vm\.LR_MC_SSR.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

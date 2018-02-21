@@ -2,26 +2,21 @@
 
 const char* ssid = "Netgear 2.4";
 const char* password = "0798336607";
-
 WiFiServer server(80);
 
-const int ssr4 = 13;
+const int pin_ssr4 = 13;
 
 char linebuf[80];
 int charcount = 0;
 
 void setup() {
-	// initialize the LEDs pins as an output:
-	pinMode(ssr4, OUTPUT);
-	digitalWrite(ssr4, HIGH);
+	pinMode(pin_ssr4, OUTPUT);
+	digitalWrite(pin_ssr4, LOW);
 
-	//Initialize serial and wait for port to open:
 	Serial.begin(115200);
 	while (!Serial) {
-		; // wait for serial port to connect. Needed for native USB port only
 	}
 
-	// We start by connecting to a WiFi network
 	Serial.println();
 	Serial.println();
 	Serial.print("Connecting to ");
@@ -29,9 +24,7 @@ void setup() {
 
 	WiFi.begin(ssid, password);
 
-	// attempt to connect to Wifi network:
 	while (WiFi.status() != WL_CONNECTED) {
-		// Connect to WPA/WPA2 network. Change this line if using open or WEP network:
 		delay(500);
 		Serial.print(".");
 	}
@@ -80,11 +73,11 @@ void loop() {
 					currentLineIsBlank = true;
 					if (strstr(linebuf, "GET /on1") > 0) {
 						Serial.println("LED 1 ON");
-						digitalWrite(ssr4, HIGH);
+						digitalWrite(pin_ssr4, HIGH);
 					}
 					else if (strstr(linebuf, "GET /off1") > 0) {
 						Serial.println("LED 1 OFF");
-						digitalWrite(ssr4, LOW);
+						digitalWrite(pin_ssr4, LOW);
 					}
 					// you're starting a new line
 					currentLineIsBlank = true;
@@ -98,7 +91,7 @@ void loop() {
 			}
 		}
 		// give the web browser time to receive the data
-		delay(1);
+		//delay(1);
 
 		// close the connection:
 		client.stop();
